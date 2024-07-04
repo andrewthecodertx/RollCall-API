@@ -1,21 +1,17 @@
-const mongoose = require("mongoose")
-const Schema = new mongoose.Schema
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const attendanceSchema = new Schema ({
     attendanceId: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true
+        type: String,
+        // required: true
     },
-    sessionId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Session",
-        required: true
-    },
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true
-    },
+    attendees: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'user',
+        }
+    ],
     attendanceTime: {
         type: Date,
         default: Date.now
@@ -25,8 +21,12 @@ const attendanceSchema = new Schema ({
         unique: true,
         required: true
     },
-    deviceToken
-})
+    isActive: {
+        type: Boolean,
+        required: true,
+        default: true
+    }
+});
 
-const Attendance = mongoose.model("Attendance", attendanceSchema)
-module.exports = Attendance
+const Attendance = mongoose.model('attendance', attendanceSchema);
+module.exports = Attendance;
