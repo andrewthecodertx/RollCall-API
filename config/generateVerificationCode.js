@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 
 exports.generateVerificationCode = () => {
-    let code = crypto.randomBytes(4).toString('hex');
-    return `${code}`;
+    let code = crypto.randomBytes(3).toString('hex');
+    return `${code}`.toUpperCase();
 }

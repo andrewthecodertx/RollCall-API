@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 require ('dotenv').config();
 const morgan = require('morgan');
 const dbConnect = require('./config/dbConnect');
@@ -9,7 +10,11 @@ const attendanceRouter = require('./routes/attendance.route');
 const app = express();
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.set('view engine', 'ejs');
+app.use('/public', express.static(path.join(__dirname, 'public')));
 const port = process.env.PORT || 3000;
 // connectToDB()
 

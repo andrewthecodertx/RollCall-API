@@ -1,20 +1,35 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const attendeeSchema = require('./Attendee')
 
 const attendanceSchema = new Schema ({
-    attendanceId: {
+    attendees: [attendeeSchema],
+    timestamp: {
+        type: Date,
+        default: Date.now
+    },
+    startTime: {    // 24h format
+        type: Date,
+        required: true
+    },
+    // sessionDuration: {
+    //     type: Number,   // in hours
+    // },
+    endTime: {
+        type: Date,
+        required: true
+    },
+    centralLatitude: {
         type: String,
         // required: true
     },
-    attendees: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'user',
-        }
-    ],
-    attendanceTime: {
-        type: Date,
-        default: Date.now
+    centralLongitude: {
+        type: String,
+        // required: true
+    },
+    radius: {
+        type: Number,
+        default: 100
     },
     verificationCode: {
         type: String,
@@ -24,7 +39,7 @@ const attendanceSchema = new Schema ({
     isActive: {
         type: Boolean,
         required: true,
-        default: true
+        default: false
     }
 });
 
